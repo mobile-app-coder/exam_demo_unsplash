@@ -19,12 +19,21 @@ class Network {
     return null;
   }
 
-  static Map<String, String> paramsToGet(String search_string) {
-    Map<String, String> params = Map();
+  static Map<String, String> paramsSearch(String search_string) {
+    Map<String, String> params = {};
     params.addAll({
       'client_id': key,
       'query': search_string,
     });
+    return params;
+  }
+
+  static Map<String, String> paramsGetCollection() {
+    Map<String, String> params = {};
+    params.addAll({
+      'client_id': key,
+    });
+
     return params;
   }
 }

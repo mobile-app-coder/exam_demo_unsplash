@@ -1,7 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:exam_demo_unsplash/models/search_photos_model.dart';
-import 'package:exam_demo_unsplash/services/log.dart';
-import 'package:exam_demo_unsplash/services/network.dart';
+import 'package:exam_demo_unsplash/pages/collections_page.dart';
+import 'package:exam_demo_unsplash/pages/search_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -12,51 +10,56 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<ImageModel> images = List.empty(growable: true);
-  SearchPhotosModel? model;
+  int _selectedIndex = 0;
+  PageController? _controller;
 
-  loadPhotos() async {
-    var response =
-        await Network.GET(Network.SEARCH_API, Network.paramsToGet("lion"));
-
-    if (response != null) {
-      LogService.i(images[1].urls.full);
-      model = searchPhotosModelFromJson(response);
-      images = model!.results;
-    }
-  }
-
+  @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    loadPhotos();
+    _controller = PageController();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Search"),
-        ),
-        body:
-        Container(
-          child: ListView.builder(
-            itemCount: images.length,
-            itemBuilder: (context, index) {
-              return photoView();
-            },
-          ),
-        )
+      body: PageView(
+        controller: _controller,
+        onPageChanged: (int index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
+        children: [SearchPage(), CollectionPage()],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.black87,
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.white,
+        selectedLabelStyle: TextStyle(color: Colors.white),
+        unselectedLabelStyle: TextStyle(color: Colors.white38),
+        items: const [
+          BottomNavigationBarItem(
 
-
-        );
-  }
-
-  Widget photoView() {
-    return Container(
-      child: CachedNetworkImage(
-        imageUrl:
-            "https://images.unsplash.com/photo-1570264013623-796051486fc6?ixlib=rb-4.0.3",
+              icon: Icon(
+                Icons.search,
+                color: Colors.white70,
+              ),
+              label: "Search"),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.collections, color: Colors.white70),
+            label: "Collection",
+          )
+        ],
+        onTap: (int index) {
+          setState(() {
+            _selectedIndex = index;
+            _controller!.animateToPage(
+              _selectedIndex,
+              duration: Duration(milliseconds: 200),
+              curve: Curves.easeIn,
+            );
+          });
+        },
       ),
     );
   }
