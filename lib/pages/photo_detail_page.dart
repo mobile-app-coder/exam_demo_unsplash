@@ -50,13 +50,6 @@ class _PhotoDetailPageState extends State<PhotoDetailPage> {
           ),
         ),
         Container(
-          child: IconButton(
-            alignment: Alignment.bottomLeft,
-            icon: Icon(Icons.info_outlined),
-            onPressed: (){},
-          ),
-        ),
-        Container(
           padding: EdgeInsets.only(bottom: 40, right: 20),
           height: double.infinity,
           width: double.infinity,
@@ -105,6 +98,12 @@ class _PhotoDetailPageState extends State<PhotoDetailPage> {
                   color: Colors.black,
                 ),
               ),
+              Container(
+                child: IconButton(
+                  icon: Icon(Icons.info_outlined, color: Colors.white,),
+                  onPressed: (){},
+                ),
+              )
             ],
           ),
         )
