@@ -2,9 +2,6 @@ import 'package:http/http.dart';
 
 class Network {
   static const String BASE = "api.unsplash.com";
-  static const String PHOTOS_API = "/photos";
-  static const String COLLECTIONS_API = "/collections";
-  static const String SEARCH_API = "/search/photos";
 
   static String key = "ueLUtaOgF0V8tvSIExWagc5dftKyTIBzi-HMfXaRUcA";
 
@@ -22,6 +19,7 @@ class Network {
   static Map<String, String> paramsSearch(String search_string) {
     Map<String, String> params = {};
     params.addAll({
+      'per_page': '30',
       'client_id': key,
       'query': search_string,
     });
@@ -33,7 +31,19 @@ class Network {
     params.addAll({
       'client_id': key,
     });
-
     return params;
   }
+
+  static Map<String, String> paramsEmpty() {
+    Map<String, String> params = {};
+    params.addAll({
+      'per_page': '30',
+      'client_id': key,
+    });
+    return params;
+  }
+
+  static const String PHOTOS_API = "/photos";
+  static const String COLLECTIONS_API = "/collections";
+  static const String SEARCH_API = "/search/photos";
 }

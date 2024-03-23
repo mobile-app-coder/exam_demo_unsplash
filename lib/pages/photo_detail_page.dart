@@ -34,12 +34,11 @@ class _PhotoDetailPageState extends State<PhotoDetailPage> {
       body: Stack(children: [
         Container(
           alignment: Alignment.center,
-          width: MediaQuery.of(context).size.height,
           child: GestureDetector(
             onTap: () {},
             child: CachedNetworkImage(
               fit: BoxFit.cover,
-              imageUrl: photo.urls.full,
+              imageUrl: photo.urls.regular,
             ),
           ),
         ),
@@ -62,8 +61,12 @@ class _PhotoDetailPageState extends State<PhotoDetailPage> {
                 ),
               ),
               GestureDetector(
-                onTap: () {
-
+                onTap: (){
+                  showBottomSheet(
+                      context: context,
+                      builder: (context) => Container(
+                        height: 100,
+                      ));
                 },
                 child: Container(
                   margin: EdgeInsets.only(top: 10),

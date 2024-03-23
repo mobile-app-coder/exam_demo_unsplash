@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:exam_demo_unsplash/models/url_model.dart';
+
 List<CollectionModel> collectionModelFromMap(String str) => List<CollectionModel>.from(json.decode(str).map((x) => CollectionModel.fromMap(x)));
 
 String collectionModelToMap(List<CollectionModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toMap())));
@@ -350,41 +352,7 @@ class The3DRenders {
   };
 }
 
-class Urls {
-  String raw;
-  String full;
-  String regular;
-  String small;
-  String thumb;
-  String smallS3;
 
-  Urls({
-    required this.raw,
-    required this.full,
-    required this.regular,
-    required this.small,
-    required this.thumb,
-    required this.smallS3,
-  });
-
-  factory Urls.fromMap(Map<String, dynamic> json) => Urls(
-    raw: json["raw"],
-    full: json["full"],
-    regular: json["regular"],
-    small: json["small"],
-    thumb: json["thumb"],
-    smallS3: json["small_s3"],
-  );
-
-  Map<String, dynamic> toMap() => {
-    "raw": raw,
-    "full": full,
-    "regular": regular,
-    "small": small,
-    "thumb": thumb,
-    "small_s3": smallS3,
-  };
-}
 
 class User {
   String id;
@@ -604,7 +572,7 @@ class PreviewPhoto {
   DateTime createdAt;
   DateTime updatedAt;
   String blurHash;
-  AssetType assetType;
+  AssetType? assetType;
   Urls urls;
 
   PreviewPhoto({
@@ -613,7 +581,7 @@ class PreviewPhoto {
     required this.createdAt,
     required this.updatedAt,
     required this.blurHash,
-    required this.assetType,
+     this.assetType,
     required this.urls,
   });
 
