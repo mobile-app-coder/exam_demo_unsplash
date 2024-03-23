@@ -43,6 +43,20 @@ class _PhotoDetailPageState extends State<PhotoDetailPage> {
           ),
         ),
         Container(
+          alignment: Alignment.topRight,
+          child: IconButton(
+            icon: Icon(Icons.ios_share_outlined, color: Colors.white),
+            onPressed: (){},
+          ),
+        ),
+        Container(
+          child: IconButton(
+            alignment: Alignment.bottomLeft,
+            icon: Icon(Icons.info_outlined),
+            onPressed: (){},
+          ),
+        ),
+        Container(
           padding: EdgeInsets.only(bottom: 40, right: 20),
           height: double.infinity,
           width: double.infinity,
