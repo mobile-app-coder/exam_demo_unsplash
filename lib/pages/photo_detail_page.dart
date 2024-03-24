@@ -26,7 +26,7 @@ class _PhotoDetailPageState extends State<PhotoDetailPage> {
       appBar: AppBar(
         backgroundColor: Colors.black12,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white38),
+          icon: Icon(Icons.arrow_back_ios, color: Colors.white38),
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
@@ -62,7 +62,7 @@ class _PhotoDetailPageState extends State<PhotoDetailPage> {
                 height: 50,
                 decoration: const BoxDecoration(
                     shape: BoxShape.circle, color: Colors.black),
-                child: Icon(
+                child: const Icon(
                   Icons.favorite,
                   color: Colors.white,
                 ),

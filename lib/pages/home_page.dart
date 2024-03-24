@@ -32,21 +32,19 @@ class _HomePageState extends State<HomePage> {
         children: [SearchPage(), CollectionPage()],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.black87,
+        backgroundColor: Colors.black,
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.white,
         selectedLabelStyle: TextStyle(color: Colors.white),
-        unselectedLabelStyle: TextStyle(color: Colors.white38),
         items: const [
           BottomNavigationBarItem(
-
               icon: Icon(
                 Icons.search,
-                color: Colors.white70,
+                color: Colors.white,
               ),
               label: "Search"),
           BottomNavigationBarItem(
-            icon: Icon(Icons.collections, color: Colors.white70),
+            icon: Icon(Icons.collections, color: Colors.white),
             label: "Collection",
           )
         ],

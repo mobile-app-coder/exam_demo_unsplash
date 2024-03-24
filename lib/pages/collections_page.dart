@@ -40,11 +40,12 @@ class _CollectionPageState extends State<CollectionPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.black87,
-        title: Text(
+        title: const Text(
           "Collections",
-          style: TextStyle(color: Colors.white70),
+          style: TextStyle(color: Colors.white),
         ),
       ),
       body: ListView.builder(
@@ -70,7 +71,7 @@ class _CollectionPageState extends State<CollectionPage> {
                 placeholder: (context, url) {
                   return Container(
                     height: 250,
-                    color: Colors.grey,
+                    color: Colors.black12,
                   );
                 },
                 imageUrl: collectionModel.coverPhoto.urls.regular,

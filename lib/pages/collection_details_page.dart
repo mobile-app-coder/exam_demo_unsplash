@@ -36,40 +36,39 @@ class _CollectionDetailsPageState extends State<CollectionDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black45,
       appBar: AppBar(
-        backgroundColor: Colors.black87,
+        backgroundColor: Colors.black,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white38),
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: Text(
           model.title,
-          style: TextStyle(color: Colors.white70),
+          style: const TextStyle(color: Colors.white),
         ),
       ),
-      body: Container(
-        child: GridView.custom(
-          gridDelegate: SliverQuiltedGridDelegate(
-            crossAxisCount: 4,
-            mainAxisSpacing: 4,
-            crossAxisSpacing: 4,
-            repeatPattern: QuiltedGridRepeatPattern.inverted,
-            pattern: [
-              QuiltedGridTile(2, 2),
-              QuiltedGridTile(1, 1),
-              QuiltedGridTile(1, 1),
-              QuiltedGridTile(1, 2),
-            ],
-          ),
-          childrenDelegate: SliverChildBuilderDelegate(
-            childCount: photos.length,
-            (context, index) => Container(
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                child: index < photos.length - 1
-                    ? _photoItem(photos[index])
-                    : Container()),
-          ),
+      body: GridView.custom(
+        gridDelegate: SliverQuiltedGridDelegate(
+          crossAxisCount: 4,
+          mainAxisSpacing: 4,
+          crossAxisSpacing: 4,
+          repeatPattern: QuiltedGridRepeatPattern.inverted,
+          pattern: [
+            QuiltedGridTile(2, 2),
+            QuiltedGridTile(1, 1),
+            QuiltedGridTile(1, 1),
+            QuiltedGridTile(1, 2),
+          ],
+        ),
+        childrenDelegate: SliverChildBuilderDelegate(
+          childCount: photos.length,
+          (context, index) => Container(
+              decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(10)),
+              child: index < photos.length - 1
+                  ? _photoItem(photos[index])
+                  : Container()),
         ),
       ),
     );
