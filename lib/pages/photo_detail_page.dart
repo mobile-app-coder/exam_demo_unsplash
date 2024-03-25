@@ -43,7 +43,9 @@ class _PhotoDetailPageState extends State<PhotoDetailPage> {
       backgroundColor: Colors.black54,
       body: Stack(children: [
         Container(
-          alignment: Alignment.center,
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          //alignment: Alignment.center,
           child: GestureDetector(
             onTap: () {},
             child: CachedNetworkImage(
