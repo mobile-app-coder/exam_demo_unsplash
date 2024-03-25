@@ -7,7 +7,7 @@
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
     <application
-        android:label="exam_demo_unsplash"
+        android:label="Resplash"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
