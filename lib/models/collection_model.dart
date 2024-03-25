@@ -589,6 +589,10 @@ class CollectionModelLinks {
 }
 
 class PreviewPhoto {
+  String? title = "";
+  String? descriptions = "";
+  String? user = "";
+
   String id;
   String slug;
   DateTime createdAt;
@@ -617,7 +621,6 @@ class PreviewPhoto {
         blurHash: json["blur_hash"],
         assetType: assetTypeValues.map[json["asset_type"]]!,
         urls: Urls.fromMap(json["urls"]),
-        links: ResultLinks.fromJson(json["links"]),
       );
 
   Map<String, dynamic> toMap() => {

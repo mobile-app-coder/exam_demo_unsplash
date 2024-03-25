@@ -43,14 +43,18 @@ class SearchPhotosModel {
 }
 
 PreviewPhoto getPreviewPhoto(Result result) {
-  return PreviewPhoto(
-      id: result.id,
-      slug: result.slug,
-      createdAt: result.createdAt,
-      updatedAt: result.updatedAt,
-      blurHash: result.blurHash,
-      links: result.links,
-      urls: result.urls);
+  var photo = PreviewPhoto(
+    id: result.id,
+    slug: result.slug,
+    createdAt: result.createdAt,
+    updatedAt: result.updatedAt,
+    blurHash: result.blurHash,
+    links: result.links,
+    urls: result.urls,
+  );
+  photo.descriptions = result.description;
+  photo.user = result.user.name;
+  return photo;
 }
 
 class Result {

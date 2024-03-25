@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:exam_demo_unsplash/models/collection_model.dart';
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 
 class PhotoDetailPage extends StatefulWidget {
   final PreviewPhoto? photo;
@@ -24,11 +25,20 @@ class _PhotoDetailPageState extends State<PhotoDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black12,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios, color: Colors.white38),
+          icon: Icon(Icons.arrow_back_ios, color: Colors.white),
           onPressed: () => Navigator.of(context).pop(),
         ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.ios_share_outlined, color: Colors.white),
+            onPressed: () {
+              share();
+            },
+          ),
+        ],
       ),
       backgroundColor: Colors.black54,
       body: Stack(children: [
@@ -43,71 +53,73 @@ class _PhotoDetailPageState extends State<PhotoDetailPage> {
           ),
         ),
         Container(
-          alignment: Alignment.topRight,
-          child: IconButton(
-            icon: Icon(Icons.ios_share_outlined, color: Colors.white),
-            onPressed: (){},
-          ),
-        ),
-        Container(
-          padding: EdgeInsets.only(bottom: 40, right: 20),
+          padding: EdgeInsets.only(bottom: 40, right: 5),
           height: double.infinity,
           width: double.infinity,
-          alignment: Alignment.bottomRight,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
+          alignment: Alignment.bottomCenter,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                width: 50,
-                height: 50,
-                decoration: const BoxDecoration(
-                    shape: BoxShape.circle, color: Colors.black),
-                child: const Icon(
-                  Icons.favorite,
+              IconButton(
+                icon: const Icon(
+                  Icons.info_outlined,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  showModalBottomSheet(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return Container(
+                          height: 600,
+                          padding: EdgeInsets.all(10),
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                              color: Colors.grey,
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(20),
+                                  topRight: Radius.circular(20))),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Username: ${photo.user}",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 20),
+                              ),
+                              Text("description: ${photo.descriptions}",
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 20)),
+                              Text(
+                                "created at : ${photo.createdAt}",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                ),
+                                maxLines: 2,
+                              ),
+                            ],
+                          ),
+                        );
+                      });
+                },
+              ),
+              IconButton(
+                onPressed: () {
+                  //_saveNetworkImage();
+                },
+                icon: const Icon(
+                  Icons.arrow_downward_outlined,
                   color: Colors.white,
                 ),
               ),
-              GestureDetector(
-                onTap: (){
-                  showBottomSheet(
-                      context: context,
-                      builder: (context) => Container(
-                        height: 100,
-                      ));
-                },
-                child: Container(
-                  margin: EdgeInsets.only(top: 10),
-                  width: 50,
-                  height: 50,
-                  decoration: const BoxDecoration(
-                      shape: BoxShape.circle, color: Colors.black),
-                  child: const Icon(
-                    Icons.more_horiz,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 10),
-                width: 50,
-                height: 50,
-                decoration: const BoxDecoration(
-                    shape: BoxShape.circle, color: Colors.white),
-                child: const Icon(
-                  Icons.arrow_downward_outlined,
-                  color: Colors.black,
-                ),
-              ),
-              Container(
-                child: IconButton(
-                  icon: Icon(Icons.info_outlined, color: Colors.white,),
-                  onPressed: (){},
-                ),
-              )
             ],
           ),
         )
       ]),
     );
+  }
+
+  share() async {
+    await Share.share(photo.links!.download);
   }
 }
