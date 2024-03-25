@@ -46,7 +46,7 @@ class _PhotoDetailPageState extends State<PhotoDetailPage> {
           alignment: Alignment.topRight,
           child: IconButton(
             icon: Icon(Icons.ios_share_outlined, color: Colors.white),
-            onPressed: () {},
+            onPressed: (){},
           ),
         ),
         Container(
@@ -68,13 +68,12 @@ class _PhotoDetailPageState extends State<PhotoDetailPage> {
                 ),
               ),
               GestureDetector(
-                onTap: () {
+                onTap: (){
                   showBottomSheet(
                       context: context,
-                      builder: (context) =>
-                          Container(
-                            height: 100,
-                          ));
+                      builder: (context) => Container(
+                        height: 100,
+                      ));
                 },
                 child: Container(
                   margin: EdgeInsets.only(top: 10),
@@ -101,140 +100,8 @@ class _PhotoDetailPageState extends State<PhotoDetailPage> {
               ),
               Container(
                 child: IconButton(
-                  onPressed: () {
-                    showModalBottomSheet(
-                      scrollControlDisabledMaxHeightRatio: double.infinity,
-                      backgroundColor: Colors.black.withOpacity(0.8),
-                      context: context,
-                      builder: (BuildContext context) {
-                        return Container(
-                          padding: const EdgeInsets.all(30),
-                          height: MediaQuery
-                              .of(context)
-                              .size
-                              .height / 1.5,
-                          width: MediaQuery
-                              .of(context)
-                              .size
-                              .width,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  SizedBox(
-                                    height: 50,
-                                    width: 50,
-                                    child: CachedNetworkImage(
-                                      fit: BoxFit.cover,
-                                      imageUrl: photo
-                                          .id,
-                                      placeholder: (context, urls) =>
-                                          Center(
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                color: Colors.grey[300],
-                                                borderRadius:
-                                                BorderRadius.circular(25),
-                                              ),
-                                            ),
-                                          ),
-                                      errorWidget: (context, urls, error) =>
-                                      const Icon(Icons.error),
-                                      imageBuilder:
-                                          (context, imageProvider) =>
-                                          Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                              BorderRadius.circular(25),
-                                              image: DecorationImage(
-                                                image: imageProvider,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                          ),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    photo.id,
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Container(
-                                margin: const EdgeInsets.only(top: 20),
-                                child: const Text(
-                                  'Description',
-                                  style: TextStyle(color: Colors.white30),
-                                ),
-                              ),
-                              // Text(
-                              //   // getDescription(),
-                              //   style: const TextStyle(
-                              //
-                              //   color: Colors.white, fontSize: 17),
-                              // ),
-                              Container(
-                                margin: const EdgeInsets.only(top: 20),
-                                child: const Text(
-                                  'Published',
-                                  style: TextStyle(color: Colors.white30),
-                                ),
-                              ),
-                              Text(
-                                photo.createdAt
-                                    .toIso8601String()
-                                    .substring(0, 10),
-                                style: const TextStyle(
-                                    color: Colors.white, fontSize: 18),
-                              ),
-                              Container(
-                                margin: const EdgeInsets.only(top: 20),
-                                child: const Text(
-                                  'Dimensions',
-                                  style: TextStyle(color: Colors.white30),
-                                ),
-                              ),
-                              Text(
-                                '${photo.blurHash} / ${photo.assetType}',
-                                style: const TextStyle(
-                                    color: Colors.white, fontSize: 18),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    );
-                  },
-                  icon: Container(
-                    height: 50,
-                    width: 50,
-                    decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.7),
-                        borderRadius: BorderRadius.circular(25)),
-                    // child: const Icon(
-                      // Iconsax.info_circle,
-                      // size: 30,
-                      // shadows: [
-                      //   Shadow(color: Colors.black, blurRadius: 8.0)
-                      // ],
-                    // ),
-
-
-                    child: IconButton(
-                      icon: Icon(Icons.info_outlined, color: Colors.white,),
-                      onPressed: (){
-                        photo;
-                      },
-                    ),
-                  ),
-                  color: Colors.white,
+                  icon: Icon(Icons.info_outlined, color: Colors.white,),
+                  onPressed: (){},
                 ),
               )
             ],
@@ -243,5 +110,4 @@ class _PhotoDetailPageState extends State<PhotoDetailPage> {
       ]),
     );
   }
-  String? Iconsax;
 }

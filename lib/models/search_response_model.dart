@@ -32,11 +32,10 @@ class SearchPhotosModel {
         total: json["total"],
         totalPages: json["total_pages"],
         results:
-        List<Result>.from(json["results"].map((x) => Result.fromJson(x))),
+            List<Result>.from(json["results"].map((x) => Result.fromJson(x))),
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "total": total,
         "total_pages": totalPages,
         "results": List<dynamic>.from(results.map((x) => x.toJson())),
@@ -44,11 +43,13 @@ class SearchPhotosModel {
 }
 
 PreviewPhoto getPreviewPhoto(Result result) {
-  return PreviewPhoto(id: result.id,
+  return PreviewPhoto(
+      id: result.id,
       slug: result.slug,
       createdAt: result.createdAt,
       updatedAt: result.updatedAt,
       blurHash: result.blurHash,
+      links: result.links,
       urls: result.urls);
 }
 
@@ -101,8 +102,7 @@ class Result {
     required this.user,
   });
 
-  factory Result.fromJson(Map<String, dynamic> json) =>
-      Result(
+  factory Result.fromJson(Map<String, dynamic> json) => Result(
         id: json["id"],
         slug: json["slug"],
         alternativeSlugs: AlternativeSlugs.fromJson(json["alternative_slugs"]),
@@ -124,16 +124,15 @@ class Result {
         likes: json["likes"],
         likedByUser: json["liked_by_user"],
         currentUserCollections:
-        List<dynamic>.from(json["current_user_collections"].map((x) => x)),
+            List<dynamic>.from(json["current_user_collections"].map((x) => x)),
         sponsorship: json["sponsorship"],
         topicSubmissions:
-        ResultTopicSubmissions.fromJson(json["topic_submissions"]),
+            ResultTopicSubmissions.fromJson(json["topic_submissions"]),
         assetType: assetTypeValues.map[json["asset_type"]]!,
         user: User.fromJson(json["user"]),
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "id": id,
         "slug": slug,
         "alternative_slugs": alternativeSlugs.toJson(),
@@ -152,7 +151,7 @@ class Result {
         "likes": likes,
         "liked_by_user": likedByUser,
         "current_user_collections":
-        List<dynamic>.from(currentUserCollections.map((x) => x)),
+            List<dynamic>.from(currentUserCollections.map((x) => x)),
         "sponsorship": sponsorship,
         "topic_submissions": topicSubmissions.toJson(),
         "asset_type": assetTypeValues.reverse[assetType],
@@ -193,8 +192,7 @@ class AlternativeSlugs {
         pt: json["pt"],
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "en": en,
         "es": es,
         "ja": ja,
@@ -223,16 +221,14 @@ class Breadcrumb {
     required this.type,
   });
 
-  factory Breadcrumb.fromJson(Map<String, dynamic> json) =>
-      Breadcrumb(
+  factory Breadcrumb.fromJson(Map<String, dynamic> json) => Breadcrumb(
         slug: json["slug"],
         title: json["title"],
         index: json["index"],
         type: typeEnumValues.map[json["type"]]!,
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "slug": slug,
         "title": title,
         "index": index,
@@ -258,16 +254,14 @@ class ResultLinks {
     required this.downloadLocation,
   });
 
-  factory ResultLinks.fromJson(Map<String, dynamic> json) =>
-      ResultLinks(
+  factory ResultLinks.fromJson(Map<String, dynamic> json) => ResultLinks(
         self: json["self"],
         html: json["html"],
         download: json["download"],
         downloadLocation: json["download_location"],
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "self": self,
         "html": html,
         "download": download,
@@ -294,8 +288,7 @@ class Source {
     required this.coverPhoto,
   });
 
-  factory Source.fromJson(Map<String, dynamic> json) =>
-      Source(
+  factory Source.fromJson(Map<String, dynamic> json) => Source(
         ancestry: Ancestry.fromJson(json["ancestry"]),
         title: json["title"],
         subtitle: json["subtitle"],
@@ -305,8 +298,7 @@ class Source {
         coverPhoto: CoverPhoto.fromJson(json["cover_photo"]),
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "ancestry": ancestry.toJson(),
         "title": title,
         "subtitle": subtitle,
@@ -328,8 +320,7 @@ class Ancestry {
     this.subcategory,
   });
 
-  factory Ancestry.fromJson(Map<String, dynamic> json) =>
-      Ancestry(
+  factory Ancestry.fromJson(Map<String, dynamic> json) => Ancestry(
         type: TypeClass.fromJson(json["type"]),
         category: json["category"] == null
             ? null
@@ -339,8 +330,7 @@ class Ancestry {
             : TypeClass.fromJson(json["subcategory"]),
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "type": type.toJson(),
         "category": category?.toJson(),
         "subcategory": subcategory?.toJson(),
@@ -356,14 +346,12 @@ class TypeClass {
     required this.prettySlug,
   });
 
-  factory TypeClass.fromJson(Map<String, dynamic> json) =>
-      TypeClass(
+  factory TypeClass.fromJson(Map<String, dynamic> json) => TypeClass(
         slug: json["slug"],
         prettySlug: json["pretty_slug"],
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "slug": slug,
         "pretty_slug": prettySlug,
       };
@@ -422,8 +410,7 @@ class CoverPhoto {
     required this.user,
   });
 
-  factory CoverPhoto.fromJson(Map<String, dynamic> json) =>
-      CoverPhoto(
+  factory CoverPhoto.fromJson(Map<String, dynamic> json) => CoverPhoto(
         id: json["id"],
         slug: json["slug"],
         alternativeSlugs: AlternativeSlugs.fromJson(json["alternative_slugs"]),
@@ -445,18 +432,17 @@ class CoverPhoto {
         likes: json["likes"],
         likedByUser: json["liked_by_user"],
         currentUserCollections:
-        List<dynamic>.from(json["current_user_collections"].map((x) => x)),
+            List<dynamic>.from(json["current_user_collections"].map((x) => x)),
         sponsorship: json["sponsorship"],
         topicSubmissions:
-        CoverPhotoTopicSubmissions.fromJson(json["topic_submissions"]),
+            CoverPhotoTopicSubmissions.fromJson(json["topic_submissions"]),
         assetType: assetTypeValues.map[json["asset_type"]],
         premium: json["premium"],
         plus: json["plus"],
         user: User.fromJson(json["user"]),
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "id": id,
         "slug": slug,
         "alternative_slugs": alternativeSlugs.toJson(),
@@ -475,7 +461,7 @@ class CoverPhoto {
         "likes": likes,
         "liked_by_user": likedByUser,
         "current_user_collections":
-        List<dynamic>.from(currentUserCollections.map((x) => x)),
+            List<dynamic>.from(currentUserCollections.map((x) => x)),
         "sponsorship": sponsorship,
         "topic_submissions": topicSubmissions.toJson(),
         "asset_type": assetTypeValues.reverse[assetType],
@@ -524,8 +510,7 @@ class CoverPhotoTopicSubmissions {
             : ArchitectureInterior.fromJson(json["travel"]),
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "architecture-interior": architectureInterior?.toJson(),
         "wallpapers": wallpapers?.toJson(),
         "color-of-water": colorOfWater?.toJson(),
@@ -546,12 +531,11 @@ class ArchitectureInterior {
 
   factory ArchitectureInterior.fromJson(Map<String?, dynamic> json) =>
       ArchitectureInterior(
-        //status: statusValues.map[json["status"]]!,
-        //approvedOn: DateTime.parse(json["approved_on"]),
-      );
+          //status: statusValues.map[json["status"]]!,
+          //approvedOn: DateTime.parse(json["approved_on"]),
+          );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "status": statusValues.reverse[status],
         "approved_on": approvedOn?.toIso8601String(),
       };
@@ -606,8 +590,7 @@ class User {
     required this.social,
   });
 
-  factory User.fromJson(Map<String, dynamic> json) =>
-      User(
+  factory User.fromJson(Map<String, dynamic> json) => User(
         id: json["id"],
         updatedAt: DateTime.parse(json["updated_at"]),
         username: json["username"],
@@ -630,8 +613,7 @@ class User {
         social: Social.fromJson(json["social"]),
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "id": id,
         "updated_at": updatedAt.toIso8601String(),
         "username": username,
@@ -674,8 +656,7 @@ class UserLinks {
     required this.followers,
   });
 
-  factory UserLinks.fromJson(Map<String, dynamic> json) =>
-      UserLinks(
+  factory UserLinks.fromJson(Map<String, dynamic> json) => UserLinks(
         self: json["self"],
         html: json["html"],
         photos: json["photos"],
@@ -685,8 +666,7 @@ class UserLinks {
         followers: json["followers"],
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "self": self,
         "html": html,
         "photos": photos,
@@ -708,15 +688,13 @@ class ProfileImage {
     required this.large,
   });
 
-  factory ProfileImage.fromJson(Map<String, dynamic> json) =>
-      ProfileImage(
+  factory ProfileImage.fromJson(Map<String, dynamic> json) => ProfileImage(
         small: json["small"],
         medium: json["medium"],
         large: json["large"],
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "small": small,
         "medium": medium,
         "large": large,
@@ -736,16 +714,14 @@ class Social {
     required this.paypalEmail,
   });
 
-  factory Social.fromJson(Map<String, dynamic> json) =>
-      Social(
+  factory Social.fromJson(Map<String, dynamic> json) => Social(
         instagramUsername: json["instagram_username"],
         portfolioUrl: json["portfolio_url"],
         twitterUsername: json["twitter_username"],
         paypalEmail: json["paypal_email"],
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "instagram_username": instagramUsername,
         "portfolio_url": portfolioUrl,
         "twitter_username": twitterUsername,
@@ -787,8 +763,7 @@ class ResultTopicSubmissions {
             : ArchitectureInterior.fromJson(json["architecture-interior"]),
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "business-work": businessWork?.toJson(),
         "current-events": currentEvents?.toJson(),
         "interiors": interiors?.toJson(),
