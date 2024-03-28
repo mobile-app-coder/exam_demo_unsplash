@@ -18,6 +18,8 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+  ScrollController controller = ScrollController();
+  int _currentPage = 0;
   bool _isLoading = true;
   List<Result> results = [];
 
@@ -27,18 +29,20 @@ class _SearchPageState extends State<SearchPage> {
         await Network.GET(Network.SEARCH_API, Network.paramsSearch(text));
     if (response != null) {
       setState(() {
-        results = searchPhotosModelFromJson(response).results;
+        results.addAll(searchPhotosModelFromJson(response).results);
       });
     }
     _isLoading = false;
   }
 
   loadPhotos() async {
-    var response = await Network.GET(Network.PHOTOS_API, Network.paramsEmpty());
+    var response = await Network.GET(
+        Network.PHOTOS_API, Network.paramsEmpty(_currentPage));
     if (response != null) {
       setState(() {
-        results = List<Result>.from(
+        var list = List<Result>.from(
             jsonDecode(response).map((x) => Result.fromJson(x)));
+        results.addAll(list);
       });
     }
     _isLoading = false;
@@ -57,6 +61,12 @@ class _SearchPageState extends State<SearchPage> {
   void initState() {
     super.initState();
     loadPhotos();
+    controller.addListener(() {
+      if (controller.position.maxScrollExtent * 0.7 <= controller.offset) {
+        _currentPage++;
+        loadPhotos();
+      }
+    });
   }
 
   @override
@@ -64,10 +74,10 @@ class _SearchPageState extends State<SearchPage> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
+        toolbarHeight: 70,
         backgroundColor: Colors.black,
         title: Container(
           height: 48,
-          margin: EdgeInsets.symmetric(vertical: 10),
           padding: EdgeInsets.symmetric(horizontal: 10),
           width: double.infinity,
           decoration: BoxDecoration(
@@ -96,19 +106,8 @@ class _SearchPageState extends State<SearchPage> {
       ),
       body: _isLoading
           ? Center(child: Lottie.asset("assets/animations/loading.json"))
-          :
-
-          // Container(
-          //         child: MasonryGridView.count(
-          //         itemCount: results.length,
-          //         crossAxisCount: 2,
-          //         mainAxisSpacing: 4,
-          //         crossAxisSpacing: 4,
-          //         itemBuilder: (context, index) {
-          //           return _resultItem(results[index]);
-          //         },
-          //       )
-          GridView.custom(
+          : GridView.custom(
+              controller: controller,
               gridDelegate: SliverQuiltedGridDelegate(
                 crossAxisCount: 4,
                 mainAxisSpacing: 4,
@@ -143,6 +142,8 @@ class _SearchPageState extends State<SearchPage> {
         },
         child: Stack(fit: StackFit.expand, children: [
           CachedNetworkImage(
+            memCacheHeight: result.height ~/ 10,
+            memCacheWidth: result.width ~/ 10,
             imageUrl: result.urls.regular,
             fit: BoxFit.cover,
           ),
@@ -151,7 +152,10 @@ class _SearchPageState extends State<SearchPage> {
             alignment: Alignment.bottomLeft,
             child: Text(
               result.user.name,
-              style: TextStyle(color: Colors.white),
+              maxLines: 1,
+              style: const TextStyle(
+                color: Colors.white,
+              ),
             ),
           )
         ]),

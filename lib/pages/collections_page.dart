@@ -68,6 +68,8 @@ class _CollectionPageState extends State<CollectionPage> {
               height: 250,
               width: double.infinity,
               child: CachedNetworkImage(
+                memCacheWidth: collectionModel.coverPhoto.width ~/ 10,
+                memCacheHeight: collectionModel.coverPhoto.height ~/ 10,
                 placeholder: (context, url) {
                   return Container(
                     height: 250,
@@ -91,9 +93,19 @@ class _CollectionPageState extends State<CollectionPage> {
                       Colors.transparent,
                     ]),
               ),
-              child: Text(
-                collectionModel.title,
-                style: TextStyle(color: Colors.white, fontSize: 30),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    collectionModel.title,
+                    style: TextStyle(color: Colors.white, fontSize: 30),
+                  ),
+                  Text(
+                    "${collectionModel.totalPhotos} photos",
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  )
+                ],
               ),
             )
           ],

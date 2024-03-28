@@ -48,7 +48,7 @@ PreviewPhoto getPreviewPhoto(Result result) {
     slug: result.slug,
     createdAt: result.createdAt,
     updatedAt: result.updatedAt,
-    blurHash: result.blurHash,
+    blurHash: result.blurHash!,
     links: result.links,
     urls: result.urls,
   );
@@ -67,9 +67,9 @@ class Result {
   int width;
   int height;
   String color;
-  String blurHash;
+  String? blurHash;
   String? description;
-  String altDescription;
+  String? altDescription;
   List<Breadcrumb> breadcrumbs;
   Urls urls;
   ResultLinks links;
@@ -91,7 +91,7 @@ class Result {
     required this.width,
     required this.height,
     required this.color,
-    required this.blurHash,
+    this.blurHash,
     required this.description,
     required this.altDescription,
     required this.breadcrumbs,
