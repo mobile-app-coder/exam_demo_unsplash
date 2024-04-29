@@ -19,17 +19,23 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   ScrollController controller = ScrollController();
-  int _currentPage = 0;
+  int _currentPage = 1;
+  int _currentSPage = 1;
   bool _isLoading = true;
+  String query = "";
   List<Result> results = [];
 
   searchPhotos(String text) async {
     _isLoading = true;
     var response =
-        await Network.GET(Network.SEARCH_API, Network.paramsSearch(text));
+        await Network.GET(Network.SEARCH_API, Network.paramsSearch(text,_currentSPage ));
     if (response != null) {
       setState(() {
-        results.addAll(searchPhotosModelFromJson(response).results);
+        if(_currentSPage == 1){
+          results = searchPhotosModelFromJson(response).results;
+        }else{
+          results.addAll(searchPhotosModelFromJson(response).results);
+        }
       });
     }
     _isLoading = false;
@@ -62,9 +68,14 @@ class _SearchPageState extends State<SearchPage> {
     super.initState();
     loadPhotos();
     controller.addListener(() {
-      if (controller.position.maxScrollExtent * 0.7 <= controller.offset) {
-        _currentPage++;
-        loadPhotos();
+      if (controller.position.maxScrollExtent <= controller.offset) {
+        if(query.isEmpty){
+          _currentPage++;
+          loadPhotos();
+        }else{
+          searchPhotos(query);
+          _currentSPage++;
+        }
       }
     });
   }
@@ -97,6 +108,7 @@ class _SearchPageState extends State<SearchPage> {
                   color: Colors.white,
                 )),
             onSubmitted: (text) {
+              query = text;
               setState(() {
                 searchPhotos(text);
               });

@@ -28,10 +28,11 @@ class Network {
     }
   }
 
-  static Map<String, String> paramsSearch(String search_string) {
+  static Map<String, String> paramsSearch(String search_string,int pageNumber) {
     Map<String, String> params = {};
     params.addAll({
       'per_page': '30',
+      'page': pageNumber.toString(),
       'client_id': key,
       'query': search_string,
     });
